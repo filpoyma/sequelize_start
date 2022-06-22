@@ -30,7 +30,7 @@ module.exports = {
         {
           name: 'George Bla',
           email: 'george@bla.bla',
-          createdAt: new Date(),
+          createdAt: new Date(2021, 6, 22),
           updatedAt: new Date(),
         },
       ],

@@ -117,52 +117,5 @@ _Таблица 1_. Связь One-to-Many.
 
 `npx sequelize-cli db:migrate`
 
-## Many to many
 
-Для этого примера создан отдельный файл `appMany.js`, и отдельная бд, которая описана в файле config.json в части test. Чтобы запустить этот файл, нужно воспользоваться скриптом `npm run many`
 
-### Идея
-
-Есть три таблицы: Dogs, Cats и DogsCats. Многие собаки могут дружить с многими кошками. Связь между кошками и собаками описывается в таблице `Dogscats`.
-
-![Many-to-Many relation](readme_assets/2.png)  
-_Таблица 1_. Связь Many-to-Many.
-
-### Модели
-
-1. В модели Dogs, в статическом методе associate нужно описать связь с многими котами через промежуточную таблицу:
-
-   ```Javascript
-   this.belongsToMany(models.Cat, { through: models.Dogscat, foreignKey: 'dog_id' });
-   ```
-
-1. В модели Cats нужно сделать аналогичную связь:
-
-   ```Javascript
-     this.belongsToMany(models.Dog, { through: models.Dogscat', foreignKey: 'cat_id' });
-   ```
-
-1. В модели Dogscat _ничего делать не нужно_
-
-### Миграции
-
-1. В миграции `dogscats` указываем, что столбцы `cat_id` и `dog_id` ссылаются на таблицы `Cats` и `Dog` соответсвенно
-
-   ```Javascript
-        dog_id: {
-       type: Sequelize.INTEGER,
-       references: {
-         model: 'Dogs', // tableName
-         key: 'id',
-       },
-        },
-        cat_id: {
-        type: Sequelize.INTEGER,
-        references: {
-         model: 'Cats', // tableName
-         key: 'id',
-       },
-       },
-   ```
-
-1. В миграциях `Cats` и `Dogs` ничего делать не нужно
