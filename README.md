@@ -36,8 +36,6 @@
 
 ## На что обратить внимание
 
-1.  Когда пишем seeder, поля `createdAt` и `updatedAt` нужно заполнить
-
 1.  Когда пишем seeder, поля `createdAt` и `updatedAt` нужно заполнить самому `new Date()`
 
 ### Связи
@@ -132,19 +130,19 @@ _Таблица 1_. Связь Many-to-Many.
 
 ### Модели
 
-1. В модели Dogs нужно описать связь с многими котами через промежуточную таблицу:
+1. В модели Dogs, в статическом методе associate нужно описать связь с многими котами через промежуточную таблицу:
 
    ```Javascript
-   this.belongsToMany(Cat, { through: 'Dogscats', foreignKey: 'dog_id' });
+   this.belongsToMany(models.Cat, { through: models.Dogscat, foreignKey: 'dog_id' });
    ```
 
 1. В модели Cats нужно сделать аналогичную связь:
 
    ```Javascript
-     this.belongsToMany(Dog, { through: 'Dogscats', foreignKey: 'cat_id' });
+     this.belongsToMany(models.Dog, { through: models.Dogscat', foreignKey: 'cat_id' });
    ```
 
-1. В модели Dogscats _ничего делать не нужно_
+1. В модели Dogscat _ничего делать не нужно_
 
 ### Миграции
 
